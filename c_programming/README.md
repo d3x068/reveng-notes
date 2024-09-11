@@ -8,7 +8,7 @@ Syntax :
 2. Address-of Operator : The & symbol is used to get the address of a variable
 3. Dereference Operator: The * symbol is used to access the value at the memory address stored by the pointer.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char const *argv[])
@@ -17,8 +17,8 @@ int main(int argc, char const *argv[])
     int *ptr = &a;
 
     printf("the value of a : %d\n",a);
-    printf("the address of a : %d\n",&a);
-    printf("the address of ptr : %d\n",ptr);
+    printf("the address of a : %p\n",&a);
+    printf("the address of ptr : %p\n",ptr);
     printf("dereference of ptr : %d\n",*ptr);
 
     return 0;
