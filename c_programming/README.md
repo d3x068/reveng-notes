@@ -185,9 +185,38 @@ int main(){
 ```
 
 # Stack and Heap Memory Management
+Goals : understanding how memory is managed, allocated, deallocated, and identifying common vuln like buffer overflow
 
+## Stack
+- Stack is a region of memory used for storing local variables, function parameters, and return addresses.
+- Function Call Stack: when a function is created, a stack frame is created. local variables and return addresses are pushed onto the stack. when the function returns, the frame is popped off.
+```c
+void print_int(int num){
+    printf("the number is : %d\n",num);
+}
+```
+
+## Heap
+Heap is a region of memory used for dynamic memory allocation malloc() and free(). Data stored in heap is persists between function calls until explicitly freed.
+```c
+int * ptr = (int *)malloc(sizeof(int)); // memory allocated in heap
+*ptr = 10;
+free(ptr); // memory deallocated in heap
+```
 # Arrays and Strings
+Arrays and strings are basically blocks of memory.
+## Arrays
+Arrays are contiguous blocks of memory that store multiple elements of the same type.
+```c
+int arr1[] = {1,2,3,4,5};
+```
+## Strings
+Strings in C are arrays of chars terminated by a null char "\0"
+```c
+char strings1[] = "Hello world!";
+printf("%s",strings1);
 
+```
 # Recursion
 
 # Working with Files
