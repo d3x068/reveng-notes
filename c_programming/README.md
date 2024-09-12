@@ -26,7 +26,8 @@ int main(int argc, char const *argv[])
 ```
 
 4. Pointer Arithmatic
-pointers can be incremented and decremented. When you increment a pointer, it moves to the next memory location based on the size of the data type it points to.
+
+Pointers can be incremented and decremented. When you increment a pointer, it moves to the next memory location based on the size of the data type it points to.
 ```c
 int arr[] = {1,2,3,4};
 int *ptr = arr; // arr is actually the same with &arr[0]
@@ -38,6 +39,7 @@ printf("address stored in ptr is %p. Dereferences : %d\n",ptr,*ptr);
 ```
 
 5. Pointer to Pointer
+
 A pointer to a pointer is a form of multi-level pointer, which stores the address of another pointer.
 ```c
 int a = 5;
@@ -49,14 +51,46 @@ printf("address stored in ptr2 is %p. Dereferences : %d\n",p2,**p2);
 ```
 
 6. Pointers in Function
+
 Pointers can be passed to functions to allow the function to modify the original variable's value (Also known as pass by reference).
 ```c
 #include <stdio.h>
 #include <stdlib.h>
 
+void changeVal(int *p, int num){
+    *p = num;
+}
+
 int main(int argc, char const *argv[])
 {
-    
+    int a = 5;
+    int *p = &a;
+    printf("initial value of A : %d\n",a);
+    changeVal(*p,10); // or you can use changeVal(&a,10)
+    printf("value of A after passing by reference : %d\n",a);
+
+    return 0;
+}
+
+```
+
+7. Dynamic Memory Allocation
+
+Pointers are used in dynamic memory allocation management. Functions like malloc(), free(), calloc(), and realloc () are require pointers.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char const *argv[]){
+    int a = 5;
+    int *ptr = (int *)malloc(sizeof(int));
+    if (ptr != NULL){
+        *ptr = 10;
+        printf("value of ptr : %d\n",*ptr);
+    }
+
+    free(ptr);
 
     return 0;
 }
@@ -66,7 +100,89 @@ int main(int argc, char const *argv[])
 
 # Structures, Unions, and Bitwise Operations
 
+## Structures
+a struct is user defined data types
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Employee {
+    int employee_id;
+    char name[50];
+    int age;
+}
+
+int main(){
+    struct Employee ep1;
+    ep1.employee_id = 123;
+    ep1.age = 25;
+    strcpy(ep1.name,"hacker");
+
+    printf("employee with id : %d is %s and %d years old.\n",ep1.employee_id,ep1.name,ep1.age);
+
+    return 0;
+}
+```
+
+
+## Unions
+A union allows storing different data types in the same memory location but can hold only one type at the time.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+union Employee {
+    int employee_id;
+    char name[50];
+    float age;
+}
+
+int main(){
+    union Employee ep1;
+    ep1.age = 25;
+    ep1.employee_id = 123;
+    strcpy(ep1.name,"hacker");
+
+    printf("hello my name is %s.\n",ep1.name);
+    return 0;
+}
+```
+
+## Bitwise Operations
+A bitwise operation commonly used in c and very useful in order to learn reverse engineering, especially for manipulating flags and working with binary data.
+
+### Common Bitwise Operations
+AND (&) OR (|) XOR (^) NOT (~) LEFT SHIFT (<<) RIGHT SHIFT (>>)
+
+```C
+int a = 5;
+int b = 7;
+printf("a AND b : %d \n",a & b);
+```
+
 # Function Pointers
+Function pointers are used to point to functions instead of variables. Syntax : return_type (*pointer_name)(parameter_types,..)
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void print_int(int num, int num2){
+    printf("the number is : %d and %d\n",num,num2);
+}
+
+
+int main(){
+    int a = 5;
+    int b = 7;
+    void (*fptr)(int,int);
+    fptr = &print_int;
+    fptr(5,7);
+
+    return 0;
+}
+
+```
 
 # Stack and Heap Memory Management
 
