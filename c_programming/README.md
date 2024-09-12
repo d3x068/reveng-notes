@@ -197,11 +197,17 @@ void print_int(int num){
 ```
 
 ## Heap
-Heap is a region of memory used for dynamic memory allocation malloc() and free(). Data stored in heap is persists between function calls until explicitly freed.
+Heap is a region of memory used for dynamic memory allocation malloc(), calloc(), realloc() and free(). Data stored in heap is persists between function calls until explicitly freed.
 ```c
-int * ptr = (int *)malloc(sizeof(int)); // memory allocated in heap
-*ptr = 10;
-free(ptr); // memory deallocated in heap
+int i;
+int * ptr = (int *)malloc(5 * sizeof(int)); // memory allocated in heap
+if (ptr != NULL){
+    for(i = 0; i<5;i++){
+        ptr[i] = i + 1;
+        printf("ptr[%d] : %d\n",i,ptr[i]);
+    }
+    free(ptr); // memory deallocated in heap
+}
 ```
 # Arrays and Strings
 Arrays and strings are basically blocks of memory.
@@ -217,6 +223,54 @@ char strings1[] = "Hello world!";
 printf("%s",strings1);
 
 ```
+## Notes
+Buffer overflows often occur when programs write more data into an array or string than it can hold. Recognizing how arrays and strings are handled helps you identify such vulnerabilities in binaries.
+
 # Recursion
+function that calls itself.
+```c
+int factorial(int n){
+    if (n==1){
+        return 1;
+    } else {
+        return n * factorial(n-1);
+    }
+}
+```
 
 # Working with Files
+## Key file operations:
+1. opening a file : fopen()
+2. reading or writing data : fread(), fwrite(), fprintf()
+3. closing a file : fclose()
+```c
+#include <stdio.h>
+
+int main() {
+    FILE *file = fopen("example.txt", "w");  // Open file for writing
+    if (file == NULL) {
+        printf("Error opening file\n");
+        return 1;
+    }
+
+    // Write to the file
+    fprintf(file, "Hello, World!\n");
+    fclose(file);  // Close the file after writing
+
+    // Reopen the file for reading
+    file = fopen("example.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        return 1;
+    }
+
+    // Read from the file
+    char buffer[100];
+    while (fgets(buffer, 100, file)) {
+        printf("%s", buffer);  // Output the file content to the console
+    }
+    
+    fclose(file);  // Close the file after reading
+    return 0;
+}
+```
