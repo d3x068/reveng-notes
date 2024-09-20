@@ -26,7 +26,21 @@ ADD R1, R0, #3  ; Add 3 to the value in R0. store result in R1 (R1 now holds 8)
 STR R1, [var]   ; Store the value from R1 into memory (at address 'var')
 ```
 ### Instructions
-Commands for the CPU
+Instruction are the basic operations the cpu executes. it really depends on the architecture.
+1. Data Movement and Arithmatic
+```asm
+MOV EAX, 5      ; Move the value 5 into register eax
+MOV EBX, EAX    ; copy the value in eax into register ebx
+
+
+PUSH    EAX     ; push the value in eax onto the stack
+POP     EBX     ; pop the top of the stack into ebx
+
+ADD EAX, EBX    ; add the value of ebx to eax
+SUB EAX, 10     ; substract the value in eax with 10
+```
+2. Control flow
+
 ### Memory Addressing
 How data is accessed
 ### Stack
