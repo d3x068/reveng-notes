@@ -40,6 +40,10 @@ ADD EAX, EBX    ; add the value of ebx to eax
 SUB EAX, 10     ; substract the value in eax with 10
 ```
 2. Control flow
+- JMP label : unconditional jump to label
+- CALL function : call specific function, saving the address of function onto the stack
+- RET : return from a function by popping the return address from the stack
+- conditional jumps based on flags: JE (jump if equal), JNE (jump if not equal), JG (jump if greater), etc.
 
 ### Memory Addressing
 How data is accessed
