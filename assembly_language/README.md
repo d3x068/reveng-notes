@@ -46,10 +46,53 @@ SUB EAX, 10     ; substract the value in eax with 10
 - conditional jumps based on flags: JE (jump if equal), JNE (jump if not equal), JG (jump if greater), etc.
 
 ### Memory Addressing
-How data is accessed
-### Stack
-### Flags
+How data is accessed. both x86 and arm have different approaches. in x86:
+- Immediate : the operand is a constant value
+```asm
+MOV eax, 10     ; move the immediate value 10 into eax
+```
+- direct : the operand is a memory address
+```asm
+MOV eax, [0x00403010]   ; move the value at memory address 0x00403010 into eax
+```
+- register indirect : the memory address is held in a register
+```asm
+MOV eax, [ebx]      ; move the value at the memory address in ebx into eax
+```
+- indexed : the memory address is computed using a base register and an index
+```asm
+MOV eax, [ebx + ecx * 4]    ; move the value at the memory address (ebx + ecx * 4) into eax
+```
 
+### Stack
+The stack is a region of memory used for temp storage of data, such as local variables,  return addresses, and function arguments.
+- PUSH
+- POP
+- Calling a function
+- Function prologue -> sets up the stack frame
+```asm
+PUSH    ebp         ; save the old base pointer
+MOV     ebp, esp    ; set the new base pointer
+SUB     esp, 16     ; allocate space for local var
+```
+- Function epilogue -> cleans up the stack
+```asm
+MOV     esp, ebp    ; restore the stack pointer
+POP     ebp         ; restore the old base pointer
+RET                 ; return to the caller
+```
+
+### Flags
+Flags are special bits in the CPU that store the results of operations (such as whether a number is zero, negative, or if an overflow occurred).
+- Zero flag (ZF) : set if the result of an operation is zero. (JZ for JUMP if Zero, and JE, Jump if equal)
+- Sign flag (SF) : set if the result is negative.
+- Carry Flag (CF): set if there is an unsigned overflow
+- Overflow Flag (OF) : set if signed overflow occurs.
+- Parity Flag (PF) : set if the number of set bits in the result is even.
+```asm
+CMP     eax, 0      ; compare eax with 0
+JE      zero_label  ; jump if eax == 0
+```
 # Basic Instructions
 
 # Assembly Example : Simple Function
