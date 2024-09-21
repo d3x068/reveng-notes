@@ -126,8 +126,8 @@ _add:
 
 _main:
     ; Call the add function
-    PUSH 20           ; Push second argument (b) onto the stack
-    PUSH 10           ; Push first argument (a) onto the stack
+    PUSH 10           ; Push second argument (b) onto the stack
+    PUSH 5           ; Push first argument (a) onto the stack
     CALL _add         ; Call the add function
 
     ; Store the result and return
@@ -136,9 +136,38 @@ _main:
 
 ```
 
+# The Stack and Function Calls Example
+```asm
+section .text
+    global _start
 
-# Registers and Memory Access
+_start:
+    ; Save the current value of the registers
+    PUSH EAX             ; Save EAX on the stack
+    PUSH EBX             ; Save EBX on the stack
 
-# The Stack and Function Calls
+    ; Now modify the registers
+    MOV EAX, 5           ; Set EAX to 5
+    MOV EBX, 10          ; Set EBX to 10
+
+    ; Do some operations
+    ADD EAX, EBX         ; EAX = EAX + EBX
+
+    ; Restore the original register values
+    POP EBX              ; Restore the original EBX value
+    POP EAX              ; Restore the original EAX value
+
+    ; Exit
+    MOV EAX, 1           ; Syscall number for exit
+    MOV EBX, 0           ; Return code 0
+    INT 0x80             ; Make the system call
+
+```
 
 # Disassembly and Reverse Engineering
+Common RE Steps :
+1. Load the binary : open the executable in a disassembler
+2. Identify functions : look for function calls and names (like _main, _add).
+3. Examine registers : trace how data moves between registers and memory.
+4. analyze control flow : follow jumps (JMP, CALL, etc) to understand the program's flow
+5. understand the stack : pay attention to how functions use the stack for parameters, return values, and local variables.
